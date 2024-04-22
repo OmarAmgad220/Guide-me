@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\C\u002B\u002B\\Guide Me\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Guide Me.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|solutionrelative:Guide Me\\Guide Me.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|solutionrelative:Guide Me\\Graph_DFS.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DE16B726-5A03-4415-A188-B96BA8EC2B11}|Guide Me\\Guide Me.vcxproj|solutionrelative:Guide Me\\Graph_DFS.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Graph_DFS.cpp",
+              "DocumentMoniker": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.cpp",
+              "RelativeDocumentMoniker": "Guide Me\\Graph_DFS.cpp",
+              "ToolTip": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.cpp",
+              "RelativeToolTip": "Guide Me\\Graph_DFS.cpp",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-22T17:59:33.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Graph_DFS.h",
+              "DocumentMoniker": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.h",
+              "RelativeDocumentMoniker": "Guide Me\\Graph_DFS.h",
+              "ToolTip": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Graph_DFS.h",
+              "RelativeToolTip": "Guide Me\\Graph_DFS.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-22T17:59:31.087Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Guide Me.cpp",
+              "DocumentMoniker": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Guide Me.cpp",
+              "RelativeDocumentMoniker": "Guide Me\\Guide Me.cpp",
+              "ToolTip": "D:\\C\u002B\u002B\\Guide Me\\Guide Me\\Guide Me.cpp",
+              "RelativeToolTip": "Guide Me\\Guide Me.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-22T12:22:46.858Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
