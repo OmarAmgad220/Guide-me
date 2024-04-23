@@ -1,26 +1,37 @@
 #pragma once
+#include<iostream>
+#include<unordered_map>
+#include<vector>
+#include<list>
 #include<string>
-#include <iostream>
-#include <stack>
-#include <unordered_map>
-#include <map>
-#include <list>
-#include <vector>
+#include<map>
+#include<stack>
+#include<queue>
 
 using namespace std;
 
-class Graph_DFS
+struct transportaions
 {
-	public:
-	map<string, bool> visited;
-	//            source           destination   vector of pair(transportaion,cost)
-	unordered_map<string, list <pair<string, vector<pair<string, int>>>>> graph;
-	public:
-	Graph_DFS();
+	vector<pair<string, int>> vehicle;
 
-	void AddToGraph(string source, string destination, vector<pair<string, int>> list_Of_Transportation);
-	
-	void DFS(string);
 };
 
 
+
+class Graph
+{
+public:
+	map<string, bool> visited;
+	//            source           destination   vector of pair(transportaion,cost)
+	unordered_map<string, list <pair<string, vector<pair<string, int>>>>> graph;
+public:
+	Graph();
+
+	void AddToGraph(string source, string destination, vector<pair<string, int>> list_Of_Transportation);
+
+	void DFS(string);
+
+	void BFS(string, string);
+
+
+};

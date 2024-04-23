@@ -1,42 +1,52 @@
 #include "Graph_DFS.h"
 
-Graph_DFS::Graph_DFS()
+Graph::Graph()
 {
 }
 
-void Graph_DFS::AddToGraph(string source, string destination, vector<pair<string, int>> list_Of_Transportation)
+void Graph::AddToGraph(string source, string destination, vector<pair<string, int>> list_Of_Transportation)
 {
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
 }
 
-void Graph_DFS::DFS(string city)
+void Graph::DFS(string city)
 {
-	stack <string> stack_of_cities;
-	stack_of_cities.push(city);
+	visited[city] = true;
+	cout << city << endl;
 
-	while (!stack_of_cities.empty())
+	for (auto i = graph[city].begin(); i != graph[city].end(); i++)
 	{
-		string n = stack_of_cities.top();
-		stack_of_cities.pop();
+		if (!visited[i->first])
+		{
+			DFS(i->first);
+		}
+	}
 
-		if (visited[n] != true) {
+}
 
-			visited[n] = true;
-			
-			cout << n<<endl;
+void Graph::BFS(string source, string destination)
+{
+	queue<string>queue_of_cities;
+	queue_of_cities.push(source);
 
-			for (auto i = graph[n].begin() ; i != graph[n].end(); i++)
+	while (!queue_of_cities.empty())
+	{
+		string current_city = queue_of_cities.front();
+		queue_of_cities.pop();
+
+		if (visited[current_city] == false)
+		{
+			visited[current_city] = true;
+			cout << current_city << endl;
+			for (pair<string, vector<pair<string, int>>> it : graph[current_city])
 			{
-				if (!visited[i->first])
+				if (visited[it.first] == false)
 				{
-					stack_of_cities.push(i->first);
+					queue_of_cities.push(it.first);
 				}
 			}
 		}
+
 	}
-	
 }
-
-
-
