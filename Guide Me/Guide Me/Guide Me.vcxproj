@@ -127,11 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Graph_DFS.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Guide Me.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graph_DFS.h" />
+    <ClInclude Include="Graph.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
