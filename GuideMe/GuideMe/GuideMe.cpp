@@ -11,17 +11,26 @@ int main()
     graph.AddToGraph("Dahab", "BeniSuef", { {200,"Microbus"}, {315,"Bus"} });
 
     string source = "Cairo";
-    string destination = "Dahab";
+    string destination = "BeniSuef";
+    transportations transport = { {30,"Uber"},{200,"Plane"} };
+    graph.Add(source, destination, transport);
 
+    for (auto it : graph.findWeight(source, destination))
+    {
+        cout << source << " " << it.first << " " << it.second << endl;
+    }
 
-    graph.displayAllPathsBFS(source, destination,550);
+    for (auto it : graph.findWeight(destination, source))
+    {
+        cout << destination << " " << it.first << " " << it.second << endl;
+    }
 
+    /*graph.displayAllPathsBFS(source, destination);
 
     cout << endl;
-    
 
-    //graph.displayAllPathsDFS(source, destination);
-   
+    graph.displayAllPathsDFS(source, destination); */
+
 
     /*if (allPaths.empty()) {
         cout << "No path found from " << source << " to " << destination << endl;
@@ -35,6 +44,7 @@ int main()
             cout << endl;
         }
     }*/
+
 
     return 0;
 }

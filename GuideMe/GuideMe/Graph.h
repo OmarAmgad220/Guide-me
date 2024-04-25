@@ -41,11 +41,13 @@ public:
 
 	void displayAllPathsBFS(string, string,int);
 
-	void displayAllPathsDFS(string, string);
+	void displayAllPathsDFS(string, string, int);
 
 	void getAllTransportation(string, string, vector<string>&, int, vector<string>,int,int, set<pair<int, vector<string>>>&);
 
 	vector<pair<int, string>>getTransportationList(string, string);
+
+	void Add(string, string, transportations);
 
 };
 

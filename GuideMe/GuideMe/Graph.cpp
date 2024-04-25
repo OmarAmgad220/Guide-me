@@ -64,12 +64,47 @@ void Graph::DFS(string source, string destination, vector<string>& currentPath, 
 
 transportations Graph::findWeight(string source, string destination)
 {
+	transportations error;
+	error.insert(make_pair(-1, " "));
+
 	for (auto neighbor : graph[source]) {
 		if (neighbor.first == destination)
 		{
 			return neighbor.second;
 		}
 	}
+	return error;
+}
+
+void Graph::Add(string source, string destination, transportations WayOfTransport)
+{
+	if (findWeight(source, destination).begin()->first == -1)
+	{
+		AddToGraph(source, destination, WayOfTransport);
+	}
+	else
+	{
+		for (auto& it : graph[source])
+		{
+			if (it.first == destination)
+			{
+				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());
+				break;
+			}
+		}
+
+		for (auto& it : graph[destination])
+		{
+			if (it.first == source)
+			{
+				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());
+				break;
+			}
+		}
+	}
+
+
+
 }
 
 void Graph::find_lowest_cost(string source, string destination){
@@ -256,10 +291,7 @@ void Graph::getAllTransportation(string source, string destination, vector<strin
 	{
 		if(cost <= budget)
 			sortedCosts.insert({ cost,route });
-		//dispaly each permutation
-		/*for (auto it : route)
-			cout << it << '\t';
-		cout << ' ' << cost << endl;*/
+	
 		return;
 
 	}
@@ -298,19 +330,27 @@ void Graph::displayAllPathsBFS(string source, string destination,int budget)
 
 }
 
-void Graph::displayAllPathsDFS(string source, string destination)
+void Graph::displayAllPathsDFS(string source, string destination, int budget)
 {
 	vector<string> currentPath;
 	vector<vector<string>> allPaths;
+	set<pair<int, vector<string>>> sortedCosts;
 	DFS(source, destination, currentPath, allPaths);
-
-	vector<vector<string>>pathsToDisplay = allPaths;
-	for (auto it1 : pathsToDisplay)
+	for (auto it1 : allPaths)
 	{
 		vector<string>tmp = it1;
 		vector<string>route;
-		//getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route,0);
-
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route, 0, budget, sortedCosts);
 
 	}
+	for (auto it1 : sortedCosts)
+	{
+		for (auto it2 : it1.second)
+		{
+			cout << it2 << "  ";
+		}
+		cout << it1.first << endl;
+	}
+
 }
+
