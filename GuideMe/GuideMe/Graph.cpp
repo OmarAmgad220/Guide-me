@@ -35,7 +35,7 @@ void Graph::DFS(string source, string destination, vector<string>& currentPath, 
 	currentPath.pop_back();  
 }
 
-void Graph::BFS(string source, string destination)
+void Graph::BFS2(string source, string destination)
 {
 	queue<string>queue_of_cities;
 	queue_of_cities.push(source);
@@ -61,70 +61,6 @@ void Graph::BFS(string source, string destination)
 	}
 }
 
-void Graph::find_lowest_cost(string source, string destination)
-{
-	vector<string> currentPath;
-	vector<vector<string>> allPaths;
-	DFS(source, destination, currentPath, allPaths);
-
-	double minimum_cost = numeric_limits<double>::infinity();//  assigns +ve infinte number for total cost
-	vector<string> sequence_of_transportations; 
-
-	if (allPaths.empty()) {
-		cout << "No path found from " << source << " to " << destination << endl;
-	}
-	else {
-		for (const auto& path : allPaths) {
-			double path_cost = 0;
-			vector<string> path_transports;
-
-			int path_size = path.size() - 1;
-
-			for (int i = 0; i < path_size; ++i) {
-				const string& current_city = path[i];
-				const string& next_city = path[i + 1];
-
-				// Find the minimum cost transportation from current_city to next_city
-				double min_transport_cost = numeric_limits<double>::infinity(); // assigns +ve infinte number for each transportation cost
-				string chosen_transport;
-
-				for (const auto& neighbor : graph[current_city]) { // list --> { destination, {int, string} } 
-					                  // destination  
-					if (neighbor.first == next_city) { 
-
-						
-						
-						for (const auto& transport : neighbor.second) { // carries {int, transportation}
-							if (transport.first < min_transport_cost) {
-								min_transport_cost = transport.first;
-								chosen_transport = transport.second;
-							}
-						}
-					}
-				}
-
-				// Add the chosen transportation of a certain edge and its cost to the path
-				path_cost += min_transport_cost;
-				path_transports.push_back(chosen_transport);
-			}
-
-			// Update the suitable path if the current path has a lower cost
-			if (path_cost < minimum_cost) {
-				minimum_cost = path_cost;
-				sequence_of_transportations = path_transports;
-			}
-		}
-
-		cout << "Minimum cost: " << minimum_cost << endl;
-		cout << "Chosen path: ";
-		for (const auto& transport : sequence_of_transportations) {
-			cout << transport << " -> ";
-		}
-		cout << destination << endl;
-	}
-
-	
-}
 
 transportations Graph::findWeight(string source, string destination)
 {
@@ -136,8 +72,7 @@ transportations Graph::findWeight(string source, string destination)
 	}
 }
 
-void Graph::tagroba(string source, string destination)
-{
+void Graph::find_lowest_cost(string source, string destination){
 	vector<string> currentPath;
 	vector<vector<string>> allPaths;
 	DFS(source, destination, currentPath, allPaths);
@@ -147,7 +82,7 @@ void Graph::tagroba(string source, string destination)
 
 	vector<pair<int, vector<string>>> wtf;
 
-	
+
 
 	if (allPaths.empty()) {
 		cout << "No path found from " << source << " to " << destination << endl;
@@ -170,8 +105,6 @@ void Graph::tagroba(string source, string destination)
 				for (const auto& neighbor : graph[current_city]) { // list --> { destination, {int, string} } 
 					// destination  
 					if (neighbor.first == next_city) {
-
-
 
 						for (const auto& transport : neighbor.second) { // carries {int, transportation}
 							if (transport.first < min_transport_cost) {
@@ -197,17 +130,150 @@ void Graph::tagroba(string source, string destination)
 					wtf.push_back(make_pair(path_cost, path_transports));
 
 			}
-			cout << "Minimum cost: " << minimum_cost << endl;
-			cout << "Chosen path: ";
-			for (const auto& transport : sequence_of_transportations) {
-				cout << transport << " -> ";
-			}
-			cout << destination << endl;
 
 		}
+		cout << "Minimum cost: " << minimum_cost << endl;
+		cout << "Chosen path: ";
+		for (const auto& transport : sequence_of_transportations) {
+			cout << transport << " -> ";
+		}
+		cout << destination << endl;
 
-		
+
 	}
 
 
+}
+
+void Graph::tagroba(string source, string destination,int budget)
+{
+	int temp_budget = budget;
+
+
+}
+
+bool isNotVisited(vector<string>path, string node)
+{
+	for (int i = 0; i < path.size(); i++)
+		if (path[i] == node)
+			return false;
+	return true;
+
+}
+
+//all paths
+vector<vector<string>> Graph::BFS(string source, string destination)
+{
+	vector<vector<string>>allPaths;
+
+	queue<vector<string>>testPaths;
+
+	//path to be inserted in all paths
+
+	vector<string>path;
+	path.push_back(source);
+
+	testPaths.push(path);
+
+	while (!testPaths.empty())
+	{
+		path = testPaths.front();
+		testPaths.pop();
+
+		string end = path[path.size() - 1];
+
+		if (end == destination)
+		{
+			allPaths.push_back(path);
+		}
+		else
+		{
+			for (auto it : graph[end])
+			{
+				if (isNotVisited(path, it.first))
+				{
+					vector<string> newPath(path);
+					newPath.push_back(it.first);
+					testPaths.push(newPath);
+				}
+			}
+		}
+
+	}
+
+	return allPaths;
+}
+
+
+vector<pair<int, string>>Graph::getTransportationList(string node1, string node2)
+{
+	vector<pair<int, string>>List;
+	for (auto it : graph[node1])
+	{
+		if (it.first == node2)
+		{
+			auto tmp = it.second;
+			List.assign(tmp.begin(), tmp.end());
+			return List;
+		}
+	}
+
+}
+
+
+void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route)
+{
+	int cost = 0;
+	vector<pair<int, string>>list;
+	if (source != destination)
+		list = getTransportationList(path[idx], path[idx + 1]);
+	route.push_back(source + '\t');
+	if (source == destination)
+	{
+		//dispaly each permutation
+		for (auto it : route)
+			cout << it<<'\t';
+		cout << endl;
+		return;
+
+	}
+
+	for (int i = 0; i < list.size(); i++)
+	{
+		route.push_back(" (" + list[i].second + ") " + to_string(list[i].first));
+
+		getAllTransportation(path[idx + 1], destination, path, idx + 1, route);
+		route.pop_back();
+	}
+	return;
+}
+
+void Graph::displayAllPathsBFS(string source, string destination)
+{
+	vector<vector<string>>pathsToDisplay = BFS(source, destination);
+	for (auto it1 : pathsToDisplay)
+	{
+		vector<string>tmp = it1;
+		vector<string>route;
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route);
+
+
+	}
+}
+
+void Graph::displayAllPathsDFS(string source, string destination)
+{
+	vector<string> currentPath;
+	vector<vector<string>> allPaths;
+	DFS(source, destination, currentPath, allPaths);
+
+	vector<vector<string>>pathsToDisplay = allPaths;
+	for (auto it1 : pathsToDisplay)
+	{
+		vector<string>tmp = it1;
+		vector<string>route;
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route);
+
+
+	}
 }

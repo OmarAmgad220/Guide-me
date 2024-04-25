@@ -1,16 +1,2 @@
-﻿  Graph.cpp
-D:\My_Life\Courses\GuideMe\GuideMe\Graph.cpp(81,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\My_Life\Courses\GuideMe\GuideMe\Graph.cpp(160,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\utility(275,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-          and
-          [
-              _Ty1=int
-          ]
-D:\My_Life\Courses\GuideMe\GuideMe\Graph.cpp(197,29): message : see reference to function template instantiation 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair<double,std::vector<std::string,std::allocator<std::string>>,0>(std::pair<double,std::vector<std::string,std::allocator<std::string>>> &&) noexcept' being compiled
-D:\My_Life\Courses\GuideMe\GuideMe\Graph.cpp(197,19): message : see the first reference to 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair' in 'Graph::tagroba'
-D:\My_Life\Courses\GuideMe\GuideMe\Graph.cpp(137): warning C4715: 'Graph::findWeight': not all control paths return a value
-  GuideMe.vcxproj -> D:\My_Life\Courses\GuideMe\x64\Debug\GuideMe.exe
+﻿  GuideMe.cpp
+  GuideMe.vcxproj -> D:\Guide-me\GuideMe\x64\Debug\GuideMe.exe

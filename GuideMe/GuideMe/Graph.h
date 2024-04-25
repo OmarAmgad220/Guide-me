@@ -28,13 +28,23 @@ public:
 
 	void DFS(string, string, vector<string>&, vector<vector<string>>&);
 
-	void BFS(string, string);
+	void BFS2(string, string);
 
 	void find_lowest_cost(string, string);
 
 	transportations findWeight(string, string);
 
-	void tagroba(string, string);
+	void tagroba(string, string,int);
+
+	vector<vector<string>> BFS(string, string);
+
+	void displayAllPathsBFS(string, string);
+
+	void displayAllPathsDFS(string, string);
+
+	void getAllTransportation(string, string, vector<string>&, int, vector<string>);
+
+	vector<pair<int, string>>getTransportationList(string, string);
 
 };
 

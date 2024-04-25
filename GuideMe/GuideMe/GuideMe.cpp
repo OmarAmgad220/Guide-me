@@ -10,12 +10,16 @@ int main()
     graph.AddToGraph("Asyut", "Cairo", { {250, "Train"}, {450,"Bus"} });
     graph.AddToGraph("Dahab", "BeniSuef", { {200,"Microbus"}, {315,"Bus"} });
 
-    string source = "Giza";
-    string destination = "Cairo";
+    string source = "Cairo";
+    string destination = "Dahab";
 
 
-    
-    graph.find_lowest_cost(source, destination);
+    graph.displayAllPathsBFS(source, destination);
+
+    cout << endl;
+
+    graph.displayAllPathsDFS(source, destination);
+   
 
     /*if (allPaths.empty()) {
         cout << "No path found from " << source << " to " << destination << endl;
