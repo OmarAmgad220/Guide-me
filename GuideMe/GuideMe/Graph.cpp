@@ -353,4 +353,53 @@ void Graph::displayAllPathsDFS(string source, string destination, int budget)
 	}
 
 }
+ void Graph ::loadTheGraph() {
+	ifstream file("TransportationMap.txt");
+	if (!file.is_open()) {
+		cerr << "Error: Could not open file." << std::endl;
+		return;
+	}
+	queue<queue<string>> LinesOfWords; // Vector to hold lines of words
+	string line;
+	while (getline(file, line)) {
+		istringstream s(line);
+		string word;
+		queue<string> words; // Vector to hold words of a line
+		// Extract words and store them in a vector
+		while (s >> word) {
+			words.push(word);
+		}
+		// Add the vector of words to the vector of lines
+		LinesOfWords.push(words);
+	}
+	file.close();
+	int edges = stoi(LinesOfWords.front().back()); // stoi convert string to int
+	LinesOfWords.pop();
+	while (edges --)
+	{
+		queue<string> Line = LinesOfWords.front();
+
+		string source, destination;
+		transportations tranportMethods;
+
+		source = Line.front();
+		Line.pop();
+		if (Line.front() == "-")
+		{
+			Line.pop();
+		}
+		destination = Line.front();
+		Line.pop();
+		while (!Line.empty())
+		{
+			string tranportation = Line.front();
+			Line.pop();
+			int cost = stoi(Line.front());
+			Line.pop();
+			tranportMethods.insert({ cost,tranportation });
+		}
+		AddToGraph(source,destination,tranportMethods);
+		LinesOfWords.pop();
+	}
+}
 
