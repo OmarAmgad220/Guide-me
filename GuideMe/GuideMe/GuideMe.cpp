@@ -14,11 +14,13 @@ int main()
     string destination = "Dahab";
 
 
-    graph.displayAllPathsBFS(source, destination);
+    graph.displayAllPathsBFS(source, destination,550);
+
 
     cout << endl;
+    
 
-    graph.displayAllPathsDFS(source, destination);
+    //graph.displayAllPathsDFS(source, destination);
    
 
     /*if (allPaths.empty()) {
