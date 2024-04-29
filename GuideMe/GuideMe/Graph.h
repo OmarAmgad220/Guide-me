@@ -46,7 +46,7 @@ public:
 
 	void displayAllPathsBFS(string, string,int);
 
-	void displayAllPathsDFS(string, string);
+	void displayAllPathsDFS(string, string, int);
 
 	void checkCompleteness();
 
@@ -58,5 +58,12 @@ public:
 
 	vector<pair<int, string>>getTransportationList(string, string);
 
+	void Add(string, string, transportations);
+
+	void Update(string, string, pair<int,string>);
+
+	void DeleteForUpdate(string, string, string,int);
+
+	void Delete(string, string);
 };
 
