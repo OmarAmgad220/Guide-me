@@ -17,6 +17,7 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 	// each insertion in the graph counts as an edge
 	edgecount++;
 }
+
 void Graph::checkCompleteness() {
 
 	int numOfedges = nodes.size() * (nodes.size() - 1);
@@ -541,20 +542,6 @@ void Graph::displayAllPathsDFS(string source, string destination, int budget)
 			cout << it2 << "  ";
 		}
 		cout << it1.first << endl;
-	}
-
-}
-
-void Graph::checkCompleteness() {
-
-	int numOfedges = nodes.size() * (nodes.size() - 1);
-	numOfedges /= 2;
-
-	if (numOfedges == edgecount) {
-		cout << "the graph is complete" << '\n';
-	}
-	else {
-		cout << "the graph isn't complete" << '\n';
 	}
 
 }

@@ -8,8 +8,8 @@
 #include<stack>
 #include<queue>
 #include<set>
-#include <fstream> // For file operations
-#include <sstream>
+#include<fstream> // For file operations
+#include<sstream>
 #define transportations set<pair<int, string>>
 
 using namespace std;
@@ -38,7 +38,7 @@ public:
 
 	//void BFS2(string, string);
 
-	void find_lowest_cost(string, string);
+	/*void find_lowest_cost(string, string);*/
 
 	transportations findWeight(string, string);
 
@@ -56,7 +56,7 @@ public:
 
 	void getAllTransportation(string, string, vector<string>&, int, vector<string>,int,int, set<pair<int, vector<string>>>&);
 
-	vector<pair<int, string>>getTransportationList(string, string);
+/*	vector<pair<int, string>>getTransportationList(string, string)*/;
 
 	void Add(string, string, transportations);
 
