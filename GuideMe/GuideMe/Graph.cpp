@@ -12,6 +12,24 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 {
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
+	//use it to know number of distinct nodes
+	nodes.insert(source);
+	nodes.insert(destination);
+	// each insertion in the graph counts as an edge
+	edgecount++;
+}
+void Graph::checkCompleteness() {
+
+	int numOfedges = nodes.size() * (nodes.size() - 1);
+	numOfedges /= 2;
+
+	if (numOfedges == edgecount) {
+		cout << "the graph is complete" << '\n';
+	}
+	else {
+		cout << "the graph isn't complete" << '\n';
+	}
+
 }
 
 void Graph::DFS(string source, string destination, vector<string>& currentPath, vector<vector<string>>& allPaths)
@@ -294,7 +312,9 @@ void Graph::displayAllPathsBFS(string source, string destination,int budget)
 			cout << it2<<" ";
 		}
 		cout<<it1.first << endl;
+
 	}
+
 
 }
 
@@ -361,3 +381,51 @@ void Graph::displayAllPathsDFS(string source, string destination)
 		LinesOfWords.pop();
 	}
 }
+
+ void Graph::saveTheGraph() {
+	 fstream myfile;
+	 /*
+	 iinsert a pair of sortand destination each timeand check if sourceand destination of this iteration are egual to the elements of the set
+	 if so it goes for the nextiteradtion
+	 */ 
+	 set<pair<string, string>> sourceAndDestination;
+	 //testing on another file rather than tansportation.txt
+	 myfile.open("TransportationMap.txt", ios::out);
+	 if (myfile.is_open()) {
+		 myfile << edgecount << '\n';
+
+		 for (auto edgeline : graph) {
+
+
+			 for (auto neighbor : edgeline.second) {
+
+				 bool dublicateedge=0;
+
+				 for (auto duplicatechecker : sourceAndDestination) 
+				 {
+					 if (duplicatechecker.first == neighbor.first && duplicatechecker.second == edgeline.first) 
+					 {
+						 dublicateedge = 1;
+					 }
+						 
+				 }
+				 if (dublicateedge) {
+					 continue;
+				 }
+
+				 string result = "";
+				 result += edgeline.first + " - ";
+				 result += neighbor.first;
+
+				 sourceAndDestination.insert({ edgeline.first,neighbor.first });
+				 for (auto transportation : neighbor.second) {
+					 result += " " + transportation.second + " " +  to_string(transportation.first);
+				 }
+				 myfile << result << '\n';
+			 }
+
+		 }
+
+	 }
+	 myfile.close();
+ }

@@ -17,6 +17,10 @@ int main()
     graph.displayAllPathsBFS(source, destination,550);
     cout << endl;
     
+    graph.checkCompleteness();
+
+    graph.saveTheGraph();
+
 
     //graph.displayAllPathsDFS(source, destination);
    

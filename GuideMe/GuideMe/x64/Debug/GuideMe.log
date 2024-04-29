@@ -1,2 +1,16 @@
-﻿  GuideMe.cpp
-  GuideMe.vcxproj -> D:\Guide-me\GuideMe\x64\Debug\GuideMe.exe
+﻿  Graph.cpp
+D:\PROJECTS\guide_me\Guide-me\GuideMe\GuideMe\Graph.cpp(23,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\PROJECTS\guide_me\Guide-me\GuideMe\GuideMe\Graph.cpp(113,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(200,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty1=int
+          ]
+D:\PROJECTS\guide_me\Guide-me\GuideMe\GuideMe\Graph.cpp(148,57): message : see reference to function template instantiation 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair<double,std::vector<std::string,std::allocator<std::string>>,0>(std::pair<double,std::vector<std::string,std::allocator<std::string>>> &&) noexcept' being compiled
+D:\PROJECTS\guide_me\Guide-me\GuideMe\GuideMe\Graph.cpp(148,19): message : see reference to function template instantiation 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair<double,std::vector<std::string,std::allocator<std::string>>,0>(std::pair<double,std::vector<std::string,std::allocator<std::string>>> &&) noexcept' being compiled
+D:\PROJECTS\guide_me\Guide-me\GuideMe\GuideMe\Graph.cpp(91): warning C4715: 'Graph::findWeight': not all control paths return a value
+  GuideMe.vcxproj -> D:\PROJECTS\guide_me\Guide-me\GuideMe\x64\Debug\GuideMe.exe

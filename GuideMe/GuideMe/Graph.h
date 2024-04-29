@@ -24,6 +24,10 @@ public:
 	//            source           destination   vector of pair(transportaion,cost)
 	unordered_map<string, list <pair<string, transportations>>> graph;
 
+	//set to store nodes and counter to calculate number of insertions
+	set<string> nodes;
+	int edgecount = 0;
+
 	
 public:
 	Graph();
@@ -44,7 +48,11 @@ public:
 
 	void displayAllPathsDFS(string, string);
 
+	void checkCompleteness();
+
 	void loadTheGraph();
+
+	void saveTheGraph();
 
 	void getAllTransportation(string, string, vector<string>&, int, vector<string>,int,int, set<pair<int, vector<string>>>&);
 
