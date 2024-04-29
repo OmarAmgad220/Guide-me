@@ -4,7 +4,16 @@ int main()
 {
     Graph graph;
 
-    graph.AddToGraph("Cairo", "Giza", { {30,"Metro"}, {60,"Bus"} ,{230,"Uber"} });
+    graph.loadTheGraph();
+
+    string source = "Cairo";
+    string destination = "BeniSuef";
+    transportations transport = { {30,"Uber"},{200,"Plane"} };
+    graph.Add(source, destination, transport);
+
+    graph.saveTheGraph();
+
+    /*graph.AddToGraph("Cairo", "Giza", { {30,"Metro"}, {60,"Bus"} ,{230,"Uber"} });
     graph.AddToGraph("Dahab", "Giza", { {500,"Bus"}, {345,"Microbus"} });
     graph.AddToGraph("Cairo", "BeniSuef", { {20, "Microbus"}, {15,"Bus"} });
     graph.AddToGraph("Asyut", "Cairo", { {250, "Train"}, {450,"Bus"} });
@@ -14,11 +23,11 @@ int main()
     string destination = "BeniSuef";
     transportations transport = { {30,"Uber"},{200,"Plane"} };
 
-    /*graph.Add(source, destination, transport);*/
+    graph.Add(source, destination, transport);
 
     graph.Update(source, destination,{ 15,"Bus" });
 
-    /*  graph.Delete(source, destination);*/
+      graph.Delete(source, destination);
     for (auto it : graph.findWeight(source, destination))
     {
         cout << source << " " << it.first << " " << it.second << endl;
@@ -27,7 +36,7 @@ int main()
     for (auto it : graph.findWeight(destination, source))
     {
         cout << destination << " " << it.first << " " << it.second << endl;
-    }
+    }*/
 
     /*graph.displayAllPathsBFS(source, destination);
 

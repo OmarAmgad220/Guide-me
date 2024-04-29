@@ -8,7 +8,8 @@
 #include<stack>
 #include<queue>
 #include<set>
-
+#include <fstream> // For file operations
+#include <sstream>
 #define transportations set<pair<int, string>>
 
 using namespace std;
@@ -22,7 +23,8 @@ public:
 	map<pair<int, string>, bool> used_vehicle;
 	//            source           destination   vector of pair(transportaion,cost)
 	unordered_map<string, list <pair<string, transportations>>> graph;
-
+	set<string> nodes;
+	int edgecount = 0;
 	
 public:
 	Graph();
@@ -42,6 +44,12 @@ public:
 	void displayAllPathsBFS(string, string,int);
 
 	void displayAllPathsDFS(string, string, int);
+
+	void checkCompleteness();
+
+	void loadTheGraph();
+
+	void saveTheGraph();
 
 	void getAllTransportation(string, string, vector<string>&, int, vector<string>,int,int, set<pair<int, vector<string>>>&);
 
