@@ -17,7 +17,7 @@ void Graph::DFS(string source, string destination, vector<string>& currentPath, 
 {                                               
 	visited[source] = true;                     
 	currentPath.push_back(source);              
-	                                            
+
 	if (source == destination) {                  
 		allPaths.push_back(currentPath);       
 	}                                            
@@ -82,13 +82,7 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 	char choice;
 	int cost;
 	string newTrasnport;
-	cout << "Trasnportation available are: " << endl;
-
-	for (auto it : findWeight(source, destination))
-	{
-		cout << it.second << " " << it.first << endl;
-	}
-
+	
 	cout << endl;
 
 	cout << "What do you want to change (C = cost,T = transportation , B = both) ? "<<endl;
@@ -259,6 +253,33 @@ void Graph::Delete(string source, string destination)
 	}
 }
 
+void Graph::DFS_Traverse(string city)
+{
+	stack <string> stack_of_cities;
+	stack_of_cities.push(city);
+
+	while (!stack_of_cities.empty())
+	{
+		string n = stack_of_cities.top();
+		stack_of_cities.pop();
+
+		if (visited[n] != true) {
+
+			visited[n] = true;
+
+			cout << n << endl;
+
+			for (auto i = graph[n].begin(); i != graph[n].end(); i++)
+			{
+				if (!visited[i->first])
+				{
+					stack_of_cities.push(i->first);
+				}
+			}
+		}
+	}
+}
+
 bool isNotVisited(vector<string>path, string node)
 {
 	for (int i = 0; i < path.size(); i++)
@@ -399,31 +420,31 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 //
 //}
 
-//void Graph::BFS2(string source, string destination)
-//{
-//	queue<string>queue_of_cities;
-//	queue_of_cities.push(source);
-//
-//	while (!queue_of_cities.empty())
-//	{
-//		string current_city = queue_of_cities.front();
-//		queue_of_cities.pop();
-//
-//		if (visited[current_city] == false)
-//		{
-//			visited[current_city] = true;
-//			cout << current_city << endl;
-//			for (auto it : graph[current_city])
-//			{
-//				if (visited[it.first] == false)
-//				{
-//					queue_of_cities.push(it.first);
-//				}
-//			}
-//		}
-//
-//	}
-//}
+void Graph::BFS_Traverse(string source)
+{
+	queue<string>queue_of_cities;
+	queue_of_cities.push(source);
+
+	while (!queue_of_cities.empty())
+	{
+		string current_city = queue_of_cities.front();
+		queue_of_cities.pop();
+
+		if (visited[current_city] == false)
+		{
+			visited[current_city] = true;
+			cout << current_city << endl;
+			for (auto it : graph[current_city])
+			{
+				if (visited[it.first] == false)
+				{
+					queue_of_cities.push(it.first);
+				}
+			}
+		}
+
+	}
+}
 
 //void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route,int cost)
 //{
@@ -452,7 +473,6 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 //	}
 //	return;
 //}
-
 
 
 void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route, int cost,int budget, set<pair<int, vector<string>>> &sortedCosts)
