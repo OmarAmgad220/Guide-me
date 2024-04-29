@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "D:\\Guide-me\\GuideMe\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Guide-me\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7A3131A0-D29C-411F-9034-7A7D9A93165D}|GuideMe\\GuideMe.vcxproj|D:\\Guide-me\\GuideMe\\GuideMe\\Graph.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7A3131A0-D29C-411F-9034-7A7D9A93165D}|GuideMe\\GuideMe.vcxproj|solutionrelative:GuideMe\\Graph.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -22,11 +25,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\Guide-me\\.gitignore",
+              "RelativeDocumentMoniker": "..\\.gitignore",
+              "ToolTip": "D:\\Guide-me\\.gitignore",
+              "RelativeToolTip": "..\\.gitignore",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAADAAAAARAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-04-29T20:48:30.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Graph.h",
               "DocumentMoniker": "D:\\Guide-me\\GuideMe\\GuideMe\\Graph.h",
               "RelativeDocumentMoniker": "GuideMe\\Graph.h",
@@ -34,25 +50,24 @@
               "RelativeToolTip": "GuideMe\\Graph.h",
               "ViewState": "AQIAAC0AAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-24T22:19:55.077Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-24T22:19:55.077Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Graph.cpp",
               "DocumentMoniker": "D:\\Guide-me\\GuideMe\\GuideMe\\Graph.cpp",
               "RelativeDocumentMoniker": "GuideMe\\Graph.cpp",
               "ToolTip": "D:\\Guide-me\\GuideMe\\GuideMe\\Graph.cpp",
               "RelativeToolTip": "GuideMe\\Graph.cpp",
-              "ViewState": "AQIAAOMBAAAAAAAAAAAqwFgCAAAgAAAA",
+              "ViewState": "AQIAANEBAAAAAAAAAAAqwEQCAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-24T22:19:55.15Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GuideMe.cpp",
               "DocumentMoniker": "D:\\Guide-me\\GuideMe\\GuideMe\\GuideMe.cpp",
               "RelativeDocumentMoniker": "GuideMe\\GuideMe.cpp",
@@ -60,8 +75,7 @@
               "RelativeToolTip": "GuideMe\\GuideMe.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-24T22:19:55.238Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-24T22:19:55.238Z"
             }
           ]
         }
