@@ -64,12 +64,103 @@ void Graph::DFS(string source, string destination, vector<string>& currentPath, 
 
 transportations Graph::findWeight(string source, string destination)
 {
+	transportations error;
+	error.insert(make_pair(-1, " "));
+
 	for (auto neighbor : graph[source]) {
 		if (neighbor.first == destination)
 		{
 			return neighbor.second;
 		}
 	}
+	return error;
+}
+
+void Graph::Add(string source, string destination, transportations WayOfTransport)
+{
+	if (findWeight(source, destination).begin()->first == -1)
+	{
+		AddToGraph(source, destination, WayOfTransport);
+	}
+	else
+	{
+		for (auto& it : graph[source])
+		{
+			if (it.first == destination)
+			{
+				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());
+				break;
+			}
+		}
+
+		for (auto& it : graph[destination])
+		{
+			if (it.first == source)
+			{
+				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());
+				break;
+			}
+		}
+	}
+
+}
+
+void Graph::Update(string source, string destination,pair<int,string> OldPair)
+{
+	char choice;
+	int cost;
+	cout << "Trasnportation available are: " << endl;
+
+	for (auto it : findWeight(source, destination))
+	{
+		cout << it.second << " " << it.first << endl;
+	}
+
+	cout << endl;
+
+	cout << "What do you want to change (C = cost,T = transportation) ? "<<endl;
+	cin >> choice;
+
+
+
+	switch (choice)
+	{
+	case 'C':
+	case 'c':
+		cout << "Enter new cost: ";
+		cin >> cost;
+
+		for (auto& neighbor : graph[source]) // list --> { destination, {int, string} }
+		{  
+			// destination  
+			if (neighbor.first == destination) 
+			{
+
+				for (auto& it : neighbor.second)
+				{
+					if (it.first == OldPair.first)
+					{
+						const_cast<int&>(it.first) = cost;
+
+						break;
+					}
+				}
+			}
+		}
+		break;
+
+
+	case't':
+	case'T':
+
+		break;
+
+
+	default:
+		break;
+	}
+
+
 }
 
 void Graph::find_lowest_cost(string source, string destination){
@@ -251,15 +342,12 @@ void Graph::getAllTransportation(string source, string destination, vector<strin
 	transportations list;
 	if (source != destination)
 		list = findWeight(path[idx], path[idx + 1]);
-	route.push_back(source );
+	route.push_back(source + "  ");
 	if (source == destination)
 	{
 		if(cost <= budget)
 			sortedCosts.insert({ cost,route });
-		//dispaly each permutation
-		/*for (auto it : route)
-			cout << it << '\t';
-		cout << ' ' << cost << endl;*/
+	
 		return;
 
 	}
@@ -267,7 +355,7 @@ void Graph::getAllTransportation(string source, string destination, vector<strin
 	for (auto it: list)
 	{
 		cost += it.first;
-		route.push_back("(" + it.second + ")");
+		route.push_back(" (" + it.second + ") ");
 
 		getAllTransportation(path[idx + 1], destination, path, idx + 1, route, cost,budget,sortedCosts);
 		route.pop_back();
@@ -291,73 +379,34 @@ void Graph::displayAllPathsBFS(string source, string destination,int budget)
 	{
 		for(auto it2 : it1.second)
 		{
-			cout << it2<<" ";
+			cout << it2<<"  ";
 		}
 		cout<<it1.first << endl;
 	}
 
 }
 
-void Graph::displayAllPathsDFS(string source, string destination)
+void Graph::displayAllPathsDFS(string source, string destination, int budget)
 {
 	vector<string> currentPath;
 	vector<vector<string>> allPaths;
+	set<pair<int, vector<string>>> sortedCosts;
 	DFS(source, destination, currentPath, allPaths);
-
-	vector<vector<string>>pathsToDisplay = allPaths;
-	for (auto it1 : pathsToDisplay)
+	for (auto it1 : allPaths)
 	{
 		vector<string>tmp = it1;
 		vector<string>route;
-	}
-}
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route, 0, budget, sortedCosts);
 
- void Graph ::loadTheGraph() {
-	ifstream file("TransportationMap.txt");
-	if (!file.is_open()) {
-		cerr << "Error: Could not open file." << std::endl;
-		return;
 	}
-	queue<queue<string>> LinesOfWords; // Vector to hold lines of words
-	string line;
-	while (getline(file, line)) {
-		istringstream s(line);
-		string word;
-		queue<string> words; // Vector to hold words of a line
-		// Extract words and store them in a vector
-		while (s >> word) {
-			words.push(word);
-		}
-		// Add the vector of words to the vector of lines
-		LinesOfWords.push(words);
-	}
-	file.close();
-	int edges = stoi(LinesOfWords.front().back()); // stoi convert string to int
-	LinesOfWords.pop();
-	while (edges --)
+	for (auto it1 : sortedCosts)
 	{
-		queue<string> Line = LinesOfWords.front();
-
-		string source, destination;
-		transportations tranportMethods;
-
-		source = Line.front();
-		Line.pop();
-		if (Line.front() == "-")
+		for (auto it2 : it1.second)
 		{
-			Line.pop();
+			cout << it2 << "  ";
 		}
-		destination = Line.front();
-		Line.pop();
-		while (!Line.empty())
-		{
-			string tranportation = Line.front();
-			Line.pop();
-			int cost = stoi(Line.front());
-			Line.pop();
-			tranportMethods.insert({ cost,tranportation });
-		}
-		AddToGraph(source,destination,tranportMethods);
-		LinesOfWords.pop();
+		cout << it1.first << endl;
 	}
+
 }
+

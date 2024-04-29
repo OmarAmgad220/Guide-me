@@ -8,8 +8,7 @@
 #include<stack>
 #include<queue>
 #include<set>
-#include <fstream> // For file operations
-#include <sstream>
+
 #define transportations set<pair<int, string>>
 
 using namespace std;
@@ -42,13 +41,14 @@ public:
 
 	void displayAllPathsBFS(string, string,int);
 
-	void displayAllPathsDFS(string, string);
-
-	void loadTheGraph();
+	void displayAllPathsDFS(string, string, int);
 
 	void getAllTransportation(string, string, vector<string>&, int, vector<string>,int,int, set<pair<int, vector<string>>>&);
 
 	vector<pair<int, string>>getTransportationList(string, string);
 
+	void Add(string, string, transportations);
+
+	void Update(string, string, pair<int,string>);
 };
 

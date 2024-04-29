@@ -1,2 +1,20 @@
-﻿  GuideMe.cpp
+﻿  Graph.cpp
+D:\Guide-me\GuideMe\GuideMe\Graph.cpp(186,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:             _Ty=double
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:             _Ty1=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16): warning C4244:         ]
+  (compiling source file 'Graph.cpp')
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(278,16):
+  the template instantiation context (the oldest one first) is
+  	D:\Guide-me\GuideMe\GuideMe\Graph.cpp(221,29):
+  	see reference to function template instantiation 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair<double,std::vector<std::string,std::allocator<std::string>>,0>(std::pair<double,std::vector<std::string,std::allocator<std::string>>> &&) noexcept' being compiled
+  		D:\Guide-me\GuideMe\GuideMe\Graph.cpp(221,19):
+  		see the first reference to 'std::pair<int,std::vector<std::string,std::allocator<std::string>>>::pair' in 'Graph::find_lowest_cost'
+  
   GuideMe.vcxproj -> D:\Guide-me\GuideMe\x64\Debug\GuideMe.exe
