@@ -50,5 +50,9 @@ public:
 	void Add(string, string, transportations);
 
 	void Update(string, string, pair<int,string>);
+
+	void DeleteForUpdate(string, string, string,int);
+
+	void Delete(string, string);
 };
 

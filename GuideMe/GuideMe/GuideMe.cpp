@@ -13,8 +13,12 @@ int main()
     string source = "Cairo";
     string destination = "BeniSuef";
     transportations transport = { {30,"Uber"},{200,"Plane"} };
-    graph.Add(source, destination, transport);
 
+    /*graph.Add(source, destination, transport);*/
+
+    graph.Update(source, destination,{ 15,"Bus" });
+
+    /*  graph.Delete(source, destination);*/
     for (auto it : graph.findWeight(source, destination))
     {
         cout << source << " " << it.first << " " << it.second << endl;

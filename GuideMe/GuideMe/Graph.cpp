@@ -109,6 +109,7 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 {
 	char choice;
 	int cost;
+	string newTrasnport;
 	cout << "Trasnportation available are: " << endl;
 
 	for (auto it : findWeight(source, destination))
@@ -118,10 +119,8 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 
 	cout << endl;
 
-	cout << "What do you want to change (C = cost,T = transportation) ? "<<endl;
+	cout << "What do you want to change (C = cost,T = transportation , B = both) ? "<<endl;
 	cin >> choice;
-
-
 
 	switch (choice)
 	{
@@ -140,7 +139,25 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 				{
 					if (it.first == OldPair.first)
 					{
-						const_cast<int&>(it.first) = cost;
+						const_cast<int&>(it.first) = cost;//bec for some reason the it var. is constant and it make it var. not constant
+
+						break;
+					}
+				}
+			}
+		}
+
+		for (auto& neighbor : graph[destination]) // list --> { source, {int, string} }
+		{
+			// source  
+			if (neighbor.first == source)
+			{
+
+				for (auto& it : neighbor.second)
+				{
+					if (it.first == OldPair.first)
+					{
+						const_cast<int&>(it.first) = cost;//bec for some reason the it var. is constant and it make it var. not constant
 
 						break;
 					}
@@ -153,14 +170,121 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 	case't':
 	case'T':
 
+		cout << "Enter new Transportation: ";
+		cin >> newTrasnport;
+
+		for (auto& neighbor : graph[source]) // list --> { destination, {int, string} }
+		{
+			// destination  
+			if (neighbor.first == destination)
+			{
+
+				for (auto& it : neighbor.second)
+				{
+					if (it.second == OldPair.second)
+					{
+						const_cast<string&>(it.second) = newTrasnport;//bec for some reason the it var. is constant and it make it var. not constant
+
+						break;
+					}
+				}
+			}
+		}
+
+		for (auto& neighbor : graph[destination]) // list --> { destination, {int, string} }
+		{
+			// destination  
+			if (neighbor.first == source)
+			{
+
+				for (auto& it : neighbor.second)
+				{
+					if (it.second == OldPair.second)
+					{
+						const_cast<string&>(it.second) = newTrasnport;//bec for some reason the it var. is constant and it make it var. not constant
+
+						break;
+					}
+				}
+			}
+		}
 		break;
 
 
-	default:
+	case'b':
+	case'B':
+		cout << "Insert the Transportation and then insert the Cost: " << endl;
+		cin >> newTrasnport;
+		cin >> cost;
+		DeleteForUpdate(source, destination, OldPair.second, OldPair.first);
+		Add(source, destination, { {cost,newTrasnport} });
 		break;
 	}
 
+}
 
+void Graph::DeleteForUpdate(string source , string destination, string DeletedTrasnport, int Deletedcost)
+{
+	pair<int, string> DeletedPair;
+
+	DeletedPair = make_pair(Deletedcost, DeletedTrasnport);
+
+	for (auto& it : graph[source])
+	{
+		if (it.first == destination)
+		{
+			it.second.erase(DeletedPair);
+			break;
+		}
+
+	}
+
+	for (auto& it : graph[destination])
+	{
+		if (it.first == source)
+		{
+			it.second.erase(DeletedPair);
+			break;
+		}
+	}
+}
+
+void Graph::Delete(string source, string destination)
+{
+	int Deletedcost;
+	string DeletedTrasnport;
+	pair<int, string> DeletedPair;
+
+	cout << "Trasnportation available are: " << endl;
+
+	for (auto it : findWeight(source, destination))
+	{
+		cout << it.second << " " << it.first << endl;
+	}
+
+	cout << "Insert the Transportation and then insert the Cost you want to be Deleted: " << endl;
+	cin >> DeletedTrasnport >> Deletedcost;
+
+	DeletedPair = make_pair(Deletedcost, DeletedTrasnport);
+	
+	for (auto& it : graph[source])
+	{
+		if (it.first == destination)
+		{
+			it.second.erase(DeletedPair);
+			break;
+		}
+		
+	}
+
+	for (auto& it : graph[destination])
+	{
+		if (it.first == source)
+		{
+			it.second.erase(DeletedPair);
+			break;
+		}
+	}
 }
 
 void Graph::find_lowest_cost(string source, string destination){
@@ -235,7 +359,6 @@ void Graph::find_lowest_cost(string source, string destination){
 
 
 }
-
 
 bool isNotVisited(vector<string>path, string node)
 {
