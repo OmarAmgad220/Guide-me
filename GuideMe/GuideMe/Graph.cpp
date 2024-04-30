@@ -11,7 +11,12 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 {
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
-	edgecount ++;
+
+	//use it to know number of distinct nodes
+	nodes.insert(source);
+	nodes.insert(destination);
+	// each insertion in the graph counts as an edge
+	edgecount++;
 }
 
 void Graph::DFS(string source, string destination, vector<string>& currentPath, vector<vector<string>>& allPaths)
@@ -294,11 +299,10 @@ bool isNotVisited(vector<string>path, string node)
 //all paths
 vector<vector<string>> Graph::BFS(string source, string destination)
 {
+	
 	vector<vector<string>>allPaths;
 
-	queue<vector<string>>testPaths;
-
-	//path to be inserted in all paths
+	queue<vector<string>>testPaths;//help put the right paths into allPaths
 
 	vector<string>path;
 	path.push_back(source);
@@ -309,29 +313,258 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 	{
 		path = testPaths.front();
 		testPaths.pop();
+		
+		string end = path[path.size() - 1];//the last city in current path 
 
-		string end = path[path.size() - 1];
-
-		if (end == destination)
+		
+		if (end == destination)//check if the end of the current path is the destination
 		{
 			allPaths.push_back(path);
 		}
 		else
-		{
+		{	
+			//combination of diffrent  city path 
 			for (auto it : graph[end])
 			{
-				if (isNotVisited(path, it.first))
+				
+				if (isNotVisited(path, it.first))// check if city path is not visited
 				{
-					vector<string> newPath(path);
-					newPath.push_back(it.first);
+					vector<string> newPath(path);//temp path
+					newPath.push_back(it.first);//add one of city's children to current path
 					testPaths.push(newPath);
 				}
 			}
 		}
+	}
+	return allPaths;//return to displayAllPathsBFS
+}
+
+void Graph::BFS_Traverse(string source)
+{
+	queue<string>queue_of_cities;
+	queue_of_cities.push(source);
+
+	while (!queue_of_cities.empty())
+	{
+		string current_city = queue_of_cities.front();
+		queue_of_cities.pop();
+
+		if (visited[current_city] == false)
+		{
+			visited[current_city] = true;
+			cout << current_city << endl;
+			for (auto it : graph[current_city])
+			{
+				if (visited[it.first] == false)
+				{
+					queue_of_cities.push(it.first);
+				}
+			}
+		}
+	}
+	visited.clear();
+
+}
+
+void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route, int cost,int budget, set<pair<int, vector<string>>> &sortedCosts)
+{
+
+	transportations list;//help decide the number of combination by getting the trapsortation between a and b
+
+	if (source != destination)
+		list = findWeight(path[idx], path[idx + 1]);
+	route.push_back(source + "  ");
+	//Base case of recursion
+	if (source == destination)
+	{
+		if(cost <= budget)
+			sortedCosts.insert({ cost,route });
+		return;
+	}
+	//Get all possible transportation rucursivly according to the budget
+	for (auto it: list)
+	{
+		cost += it.first;
+		route.push_back(" (" + it.second + ") ");
+
+		getAllTransportation(path[idx + 1], destination, path, idx + 1, route, cost,budget,sortedCosts);
+		route.pop_back();
+		cost -= it.first;
+	}
+	return;
+}
+
+void Graph::displayAllPathsBFS(string source, string destination,int budget)
+{
+	set<pair<int, vector<string>>> sortedCosts;
+	vector<vector<string>>pathsToDisplay = BFS(source, destination);
+
+	//Stored all possible path according to the budget
+	for (auto it1 : pathsToDisplay)
+	{	
+		vector<string>tmp = it1;
+		vector<string>route;
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route,0,budget,sortedCosts);
 
 	}
+	//Display all possible path according to the budget sorted
+	for (auto it1 : sortedCosts)
+	{
+		for(auto it2 : it1.second)
+		{
+			cout << it2<<"  ";
+		}
+		cout<<it1.first << endl;
+	}
+}
 
-	return allPaths;
+void Graph::displayAllPathsDFS(string source, string destination, int budget)
+{
+	vector<string> currentPath;
+	vector<vector<string>> allPaths;
+	set<pair<int, vector<string>>> sortedCosts;
+	DFS(source, destination, currentPath, allPaths);
+
+	//Stored all possible path according to the budget
+	for (auto it1 : allPaths)
+	{
+		vector<string>tmp = it1;
+		vector<string>route;
+		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route, 0, budget, sortedCosts);
+
+	}
+	//Display all possible path according to the budget
+	for (auto it1 : sortedCosts)
+	{
+		for (auto it2 : it1.second)
+		{
+			cout << it2 << "  ";
+		}
+		cout << it1.first << endl;
+	}
+
+}
+
+void Graph::checkCompleteness() {
+
+	int numOfedges = nodes.size() * (nodes.size() - 1);
+	numOfedges /= 2;
+
+	if (numOfedges == edgecount) {
+		cout << "the graph is complete" << '\n';
+	}
+	else {
+		cout << "the graph isn't complete" << '\n';
+	}
+
+}
+
+void Graph::loadTheGraph() {
+	ifstream file("TransportationMap.txt");
+	if (!file.is_open()) {
+		cerr << "Error: Could not open file." << endl;
+		return;
+	}
+	queue<queue<string>> LinesOfWords; // Queue to hold lines of words
+	string line;
+
+	//takes lines from file and put it to queue
+	while (getline(file, line)) {
+		istringstream s(line);//transform line into seperate words
+		string word;
+		queue<string> words; // Queue to hold words of a line
+		// Extract words and store them in a Queue
+		while (s >> word)
+		{
+			words.push(word);
+		}
+		// Add the Queue of words to the Queue of lines
+		LinesOfWords.push(words);
+	}
+	file.close();
+	
+	//				 the back of the inner queue
+	int edges = stoi(LinesOfWords.front().back()); // stoi convert string to int , edges = nb at the inpute
+	LinesOfWords.pop();
+
+	//Done from file and initialize for there respected variable 
+	while (edges--)
+	{
+		queue<string> Line = LinesOfWords.front();//Line is for takes line by line
+
+		string source, destination;
+		transportations tranportMethods;
+
+		source = Line.front();
+		Line.pop();
+		if (Line.front() == "-")
+		{
+			Line.pop();
+		}
+		destination = Line.front();
+		Line.pop();
+		while (!Line.empty())
+		{
+			string tranportation = Line.front();
+			Line.pop();
+			int cost = stoi(Line.front());
+			Line.pop();
+			tranportMethods.insert({ cost,tranportation });
+		}
+		AddToGraph(source, destination, tranportMethods);
+		LinesOfWords.pop();
+	}
+}
+
+void Graph::saveTheGraph() {
+	fstream myfile;
+	/*
+	insert a pair of sort and destination each time and check if source and destination of this iteration are equal to the elements of the set
+	if so it goes for the next iteradtion
+	*/
+	set<pair<string, string>> sourceAndDestination;
+
+	myfile.open("TransportationMap.txt", ios::out);
+
+	if (myfile.is_open()) {
+
+		myfile << edgecount << '\n';// << is used for write in myfile
+
+		for (auto edgeline : graph) {
+
+			for (auto neighbor : edgeline.second) {
+
+				bool dublicateedge = 0;
+				//iterate to check if duplicat exist
+				for (auto duplicatechecker : sourceAndDestination)
+				{
+					if (duplicatechecker.first == neighbor.first && duplicatechecker.second == edgeline.first)
+					{
+						dublicateedge = 1;
+					}
+
+				}
+				//skip the duplication
+				if (dublicateedge) {
+					continue;
+				}
+
+				//put them into one string 
+				string result = "";
+				result += edgeline.first + " - ";
+				result += neighbor.first;
+				//insert it to the file
+				sourceAndDestination.insert({ edgeline.first,neighbor.first });
+				for (auto transportation : neighbor.second) {
+					result += " " + transportation.second + " " + to_string(transportation.first);
+				}
+				myfile << result << '\n';//print it into the file
+			}
+
+		}
+
+	}
+	myfile.close();
 }
 
 //void Graph::find_lowest_cost(string source, string destination){
@@ -422,34 +655,6 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 //
 //}
 
-void Graph::BFS_Traverse(string source)
-{
-	queue<string>queue_of_cities;
-	queue_of_cities.push(source);
-
-	while (!queue_of_cities.empty())
-	{
-		string current_city = queue_of_cities.front();
-		queue_of_cities.pop();
-
-		if (visited[current_city] == false)
-		{
-			visited[current_city] = true;
-			cout << current_city << endl;
-			for (auto it : graph[current_city])
-			{
-				if (visited[it.first] == false)
-				{
-					queue_of_cities.push(it.first);
-				}
-			}
-		}
-
-	}
-	visited.clear();
-
-}
-
 //void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route,int cost)
 //{
 //	vector<pair<int, string>>list;
@@ -477,188 +682,3 @@ void Graph::BFS_Traverse(string source)
 //	}
 //	return;
 //}
-
-
-void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route, int cost,int budget, set<pair<int, vector<string>>> &sortedCosts)
-{
-	transportations list;
-	if (source != destination)
-		list = findWeight(path[idx], path[idx + 1]);
-	route.push_back(source + "  ");
-	if (source == destination)
-	{
-		if(cost <= budget)
-			sortedCosts.insert({ cost,route });
-	
-		return;
-	}
-
-	for (auto it: list)
-	{
-		cost += it.first;
-		route.push_back(" (" + it.second + ") ");
-
-		getAllTransportation(path[idx + 1], destination, path, idx + 1, route, cost,budget,sortedCosts);
-		route.pop_back();
-		cost -= it.first;
-	}
-	return;
-}
-
-void Graph::displayAllPathsBFS(string source, string destination,int budget)
-{
-	set<pair<int, vector<string>>> sortedCosts;
-	vector<vector<string>>pathsToDisplay = BFS(source, destination);
-	for (auto it1 : pathsToDisplay)
-	{
-		vector<string>tmp = it1;
-		vector<string>route;
-		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route,0,budget,sortedCosts);
-
-	}
-	for (auto it1 : sortedCosts)
-	{
-		for(auto it2 : it1.second)
-		{
-			cout << it2<<"  ";
-		}
-		cout<<it1.first << endl;
-	}
-
-}
-
-void Graph::displayAllPathsDFS(string source, string destination, int budget)
-{
-	vector<string> currentPath;
-	vector<vector<string>> allPaths;
-	set<pair<int, vector<string>>> sortedCosts;
-	DFS(source, destination, currentPath, allPaths);
-	for (auto it1 : allPaths)
-	{
-		vector<string>tmp = it1;
-		vector<string>route;
-		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route, 0, budget, sortedCosts);
-
-	}
-	for (auto it1 : sortedCosts)
-	{
-		for (auto it2 : it1.second)
-		{
-			cout << it2 << "  ";
-		}
-		cout << it1.first << endl;
-	}
-
-}
-
-void Graph::checkCompleteness() {
-
-	int numOfedges = nodes.size() * (nodes.size() - 1);
-	numOfedges /= 2;
-
-	if (numOfedges == edgecount) {
-		cout << "the graph is complete" << '\n';
-	}
-	else {
-		cout << "the graph isn't complete" << '\n';
-	}
-
-}
-
-void Graph::loadTheGraph() {
-	ifstream file("TransportationMap.txt");
-	if (!file.is_open()) {
-		cerr << "Error: Could not open file." << std::endl;
-		return;
-	}
-	queue<queue<string>> LinesOfWords; // Vector to hold lines of words
-	string line;
-	while (getline(file, line)) {
-		istringstream s(line);
-		string word;
-		queue<string> words; // Vector to hold words of a line
-		// Extract words and store them in a vector
-		while (s >> word) {
-			words.push(word);
-		}
-		// Add the vector of words to the vector of lines
-		LinesOfWords.push(words);
-	}
-	file.close();
-	int edges = stoi(LinesOfWords.front().back()); // stoi convert string to int
-	LinesOfWords.pop();
-	while (edges--)
-	{
-		queue<string> Line = LinesOfWords.front();
-
-		string source, destination;
-		transportations tranportMethods;
-
-		source = Line.front();
-		Line.pop();
-		if (Line.front() == "-")
-		{
-			Line.pop();
-		}
-		destination = Line.front();
-		Line.pop();
-		while (!Line.empty())
-		{
-			string tranportation = Line.front();
-			Line.pop();
-			int cost = stoi(Line.front());
-			Line.pop();
-			tranportMethods.insert({ cost,tranportation });
-		}
-		AddToGraph(source, destination, tranportMethods);
-		LinesOfWords.pop();
-	}
-}
-
-void Graph::saveTheGraph() {
-	fstream myfile;
-	/*
-	iinsert a pair of sortand destination each timeand check if sourceand destination of this iteration are egual to the elements of the set
-	if so it goes for the nextiteradtion
-	*/
-	set<pair<string, string>> sourceAndDestination;
-	//testing on another file rather than tansportation.txt
-	myfile.open("TransportationMap.txt", ios::out);
-	if (myfile.is_open()) {
-		myfile << edgecount << '\n';
-
-		for (auto edgeline : graph) {
-
-
-			for (auto neighbor : edgeline.second) {
-
-				bool dublicateedge = 0;
-
-				for (auto duplicatechecker : sourceAndDestination)
-				{
-					if (duplicatechecker.first == neighbor.first && duplicatechecker.second == edgeline.first)
-					{
-						dublicateedge = 1;
-					}
-
-				}
-				if (dublicateedge) {
-					continue;
-				}
-
-				string result = "";
-				result += edgeline.first + " - ";
-				result += neighbor.first;
-
-				sourceAndDestination.insert({ edgeline.first,neighbor.first });
-				for (auto transportation : neighbor.second) {
-					result += " " + transportation.second + " " + to_string(transportation.first);
-				}
-				myfile << result << '\n';
-			}
-
-		}
-
-	}
-	myfile.close();
-}

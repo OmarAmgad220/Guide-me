@@ -11,7 +11,6 @@
 using namespace std;
 
 
-
 void handleGraphModification(Graph& graph) {
     cout << "[1]. Update edge" << endl;
     cout << "[2]. Add edge" << endl;
