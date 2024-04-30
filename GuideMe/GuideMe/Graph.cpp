@@ -11,6 +11,7 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 {
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
+	edgecount ++;
 }
 
 void Graph::DFS(string source, string destination, vector<string>& currentPath, vector<vector<string>>& allPaths)
@@ -278,6 +279,7 @@ void Graph::DFS_Traverse(string city)
 			}
 		}
 	}
+	visited.clear();
 }
 
 bool isNotVisited(vector<string>path, string node)
@@ -444,6 +446,8 @@ void Graph::BFS_Traverse(string source)
 		}
 
 	}
+	visited.clear();
+
 }
 
 //void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route,int cost)
