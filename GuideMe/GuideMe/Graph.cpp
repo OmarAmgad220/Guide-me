@@ -383,6 +383,11 @@ void Graph::getAllTransportation(string source, string destination, vector<strin
 			sortedCosts.insert({ cost,route });
 		return;
 	}
+	else if (cost > budget)
+	{
+		return;
+	}
+
 	//Get all possible transportation rucursivly according to the budget
 	for (auto it: list)
 	{
@@ -404,20 +409,27 @@ void Graph::displayAllPathsBFS(string source, string destination,int budget)
 	//Stored all possible path according to the budget
 	for (auto it1 : pathsToDisplay)
 	{	
-		vector<string>tmp = it1;
 		vector<string>route;
-		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route,0,budget,sortedCosts);
+		getAllTransportation(it1[0], it1[it1.size() - 1], it1, 0, route,0,budget,sortedCosts);
 
 	}
-	//Display all possible path according to the budget sorted
-	for (auto it1 : sortedCosts)
+	if (sortedCosts.empty())
 	{
-		for(auto it2 : it1.second)
-		{
-			cout << it2<<"  ";
-		}
-		cout<<it1.first << endl;
+		cout << "No available transportation with this budget"<<endl;
 	}
+	else 
+	{
+		//Display all possible path according to the budget sorted
+		for (auto it1 : sortedCosts)
+		{
+			for (auto it2 : it1.second)
+			{
+				cout << it2 << "  ";
+			}
+			cout << it1.first << '\n';
+		}
+	}
+	
 }
 
 void Graph::displayAllPathsDFS(string source, string destination, int budget)
@@ -430,19 +442,25 @@ void Graph::displayAllPathsDFS(string source, string destination, int budget)
 	//Stored all possible path according to the budget
 	for (auto it1 : allPaths)
 	{
-		vector<string>tmp = it1;
 		vector<string>route;
-		getAllTransportation(tmp[0], tmp[tmp.size() - 1], tmp, 0, route, 0, budget, sortedCosts);
+		getAllTransportation(it1[0], it1[it1.size() - 1], it1, 0, route, 0, budget, sortedCosts);
 
 	}
-	//Display all possible path according to the budget
-	for (auto it1 : sortedCosts)
+	if (sortedCosts.empty())
 	{
-		for (auto it2 : it1.second)
+		cout << "No available transportation with this budget" << endl;
+	}
+	else
+	{
+		//Display all possible path according to the budget sorted
+		for (auto it1 : sortedCosts)
 		{
-			cout << it2 << "  ";
+			for (auto it2 : it1.second)
+			{
+				cout << it2 << "  ";
+			}
+			cout << it1.first << '\n';
 		}
-		cout << it1.first << endl;
 	}
 
 }
@@ -462,7 +480,7 @@ void Graph::checkCompleteness() {
 }
 
 void Graph::loadTheGraph() {
-	ifstream file("TransportationMap.txt");
+	ifstream file("test.txt");
 	if (!file.is_open()) {
 		cerr << "Error: Could not open file." << endl;
 		return;
@@ -486,7 +504,7 @@ void Graph::loadTheGraph() {
 	file.close();
 	
 	//				 the back of the inner queue
-	int edges = stoi(LinesOfWords.front().back()); // stoi convert string to int , edges = nb at the inpute
+	int edges = stoi(LinesOfWords.front().front()); // stoi convert string to int , edges = nb at the inpute
 	LinesOfWords.pop();
 
 	//Done from file and initialize for there respected variable 
@@ -526,7 +544,7 @@ void Graph::saveTheGraph() {
 	*/
 	set<pair<string, string>> sourceAndDestination;
 
-	myfile.open("TransportationMap.txt", ios::out);
+	myfile.open("test.txt", ios::out);
 
 	if (myfile.is_open()) {
 
