@@ -36,7 +36,7 @@ public:
 
 	void DFS(string, string, vector<string>&, vector<vector<string>>&);
 
-	//void BFS2(string, string);
+	void BFS_Traverse(string source);
 
 	/*void find_lowest_cost(string, string);*/
 
@@ -65,5 +65,7 @@ public:
 	void DeleteForUpdate(string, string, string,int);
 
 	void Delete(string, string);
+
+	void DFS_Traverse(string);
 };
 

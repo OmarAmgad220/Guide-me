@@ -11,32 +11,14 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 {
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
-	//use it to know number of distinct nodes
-	nodes.insert(source);
-	nodes.insert(destination);
-	// each insertion in the graph counts as an edge
-	edgecount++;
-}
-
-void Graph::checkCompleteness() {
-
-	int numOfedges = nodes.size() * (nodes.size() - 1);
-	numOfedges /= 2;
-
-	if (numOfedges == edgecount) {
-		cout << "the graph is complete" << '\n';
-	}
-	else {
-		cout << "the graph isn't complete" << '\n';
-	}
-
+	edgecount ++;
 }
 
 void Graph::DFS(string source, string destination, vector<string>& currentPath, vector<vector<string>>& allPaths)
 {                                               
 	visited[source] = true;                     
 	currentPath.push_back(source);              
-	                                            
+
 	if (source == destination) {                  
 		allPaths.push_back(currentPath);       
 	}                                            
@@ -101,13 +83,7 @@ void Graph::Update(string source, string destination,pair<int,string> OldPair)
 	char choice;
 	int cost;
 	string newTrasnport;
-	cout << "Trasnportation available are: " << endl;
-
-	for (auto it : findWeight(source, destination))
-	{
-		cout << it.second << " " << it.first << endl;
-	}
-
+	
 	cout << endl;
 
 	cout << "What do you want to change (C = cost,T = transportation , B = both) ? "<<endl;
@@ -278,6 +254,34 @@ void Graph::Delete(string source, string destination)
 	}
 }
 
+void Graph::DFS_Traverse(string city)
+{
+	stack <string> stack_of_cities;
+	stack_of_cities.push(city);
+
+	while (!stack_of_cities.empty())
+	{
+		string n = stack_of_cities.top();
+		stack_of_cities.pop();
+
+		if (visited[n] != true) {
+
+			visited[n] = true;
+
+			cout << n << endl;
+
+			for (auto i = graph[n].begin(); i != graph[n].end(); i++)
+			{
+				if (!visited[i->first])
+				{
+					stack_of_cities.push(i->first);
+				}
+			}
+		}
+	}
+	visited.clear();
+}
+
 bool isNotVisited(vector<string>path, string node)
 {
 	for (int i = 0; i < path.size(); i++)
@@ -418,31 +422,33 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 //
 //}
 
-//void Graph::BFS2(string source, string destination)
-//{
-//	queue<string>queue_of_cities;
-//	queue_of_cities.push(source);
-//
-//	while (!queue_of_cities.empty())
-//	{
-//		string current_city = queue_of_cities.front();
-//		queue_of_cities.pop();
-//
-//		if (visited[current_city] == false)
-//		{
-//			visited[current_city] = true;
-//			cout << current_city << endl;
-//			for (auto it : graph[current_city])
-//			{
-//				if (visited[it.first] == false)
-//				{
-//					queue_of_cities.push(it.first);
-//				}
-//			}
-//		}
-//
-//	}
-//}
+void Graph::BFS_Traverse(string source)
+{
+	queue<string>queue_of_cities;
+	queue_of_cities.push(source);
+
+	while (!queue_of_cities.empty())
+	{
+		string current_city = queue_of_cities.front();
+		queue_of_cities.pop();
+
+		if (visited[current_city] == false)
+		{
+			visited[current_city] = true;
+			cout << current_city << endl;
+			for (auto it : graph[current_city])
+			{
+				if (visited[it.first] == false)
+				{
+					queue_of_cities.push(it.first);
+				}
+			}
+		}
+
+	}
+	visited.clear();
+
+}
 
 //void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route,int cost)
 //{
@@ -471,7 +477,6 @@ vector<vector<string>> Graph::BFS(string source, string destination)
 //	}
 //	return;
 //}
-
 
 
 void Graph::getAllTransportation(string source, string destination, vector<string>& path, int idx, vector<string>route, int cost,int budget, set<pair<int, vector<string>>> &sortedCosts)
@@ -546,6 +551,20 @@ void Graph::displayAllPathsDFS(string source, string destination, int budget)
 
 }
 
+void Graph::checkCompleteness() {
+
+	int numOfedges = nodes.size() * (nodes.size() - 1);
+	numOfedges /= 2;
+
+	if (numOfedges == edgecount) {
+		cout << "the graph is complete" << '\n';
+	}
+	else {
+		cout << "the graph isn't complete" << '\n';
+	}
+
+}
+
 void Graph::loadTheGraph() {
 	ifstream file("TransportationMap.txt");
 	if (!file.is_open()) {
@@ -591,55 +610,55 @@ void Graph::loadTheGraph() {
 			Line.pop();
 			tranportMethods.insert({ cost,tranportation });
 		}
-		AddToGraph(source,destination,tranportMethods);
+		AddToGraph(source, destination, tranportMethods);
 		LinesOfWords.pop();
 	}
 }
 
- void Graph::saveTheGraph() {
-	 fstream myfile;
-	 /*
-	 iinsert a pair of sortand destination each timeand check if sourceand destination of this iteration are egual to the elements of the set
-	 if so it goes for the nextiteradtion
-	 */ 
-	 set<pair<string, string>> sourceAndDestination;
-	 //testing on another file rather than tansportation.txt
-	 myfile.open("TransportationMap.txt", ios::out);
-	 if (myfile.is_open()) {
-		 myfile << edgecount << '\n';
+void Graph::saveTheGraph() {
+	fstream myfile;
+	/*
+	iinsert a pair of sortand destination each timeand check if sourceand destination of this iteration are egual to the elements of the set
+	if so it goes for the nextiteradtion
+	*/
+	set<pair<string, string>> sourceAndDestination;
+	//testing on another file rather than tansportation.txt
+	myfile.open("TransportationMap.txt", ios::out);
+	if (myfile.is_open()) {
+		myfile << edgecount << '\n';
 
-		 for (auto edgeline : graph) {
+		for (auto edgeline : graph) {
 
 
-			 for (auto neighbor : edgeline.second) {
+			for (auto neighbor : edgeline.second) {
 
-				 bool dublicateedge=0;
+				bool dublicateedge = 0;
 
-				 for (auto duplicatechecker : sourceAndDestination) 
-				 {
-					 if (duplicatechecker.first == neighbor.first && duplicatechecker.second == edgeline.first) 
-					 {
-						 dublicateedge = 1;
-					 }
-						 
-				 }
-				 if (dublicateedge) {
-					 continue;
-				 }
+				for (auto duplicatechecker : sourceAndDestination)
+				{
+					if (duplicatechecker.first == neighbor.first && duplicatechecker.second == edgeline.first)
+					{
+						dublicateedge = 1;
+					}
 
-				 string result = "";
-				 result += edgeline.first + " - ";
-				 result += neighbor.first;
+				}
+				if (dublicateedge) {
+					continue;
+				}
 
-				 sourceAndDestination.insert({ edgeline.first,neighbor.first });
-				 for (auto transportation : neighbor.second) {
-					 result += " " + transportation.second + " " +  to_string(transportation.first);
-				 }
-				 myfile << result << '\n';
-			 }
+				string result = "";
+				result += edgeline.first + " - ";
+				result += neighbor.first;
 
-		 }
+				sourceAndDestination.insert({ edgeline.first,neighbor.first });
+				for (auto transportation : neighbor.second) {
+					result += " " + transportation.second + " " + to_string(transportation.first);
+				}
+				myfile << result << '\n';
+			}
 
-	 }
-	 myfile.close();
- }
+		}
+
+	}
+	myfile.close();
+}
