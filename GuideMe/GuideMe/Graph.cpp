@@ -19,24 +19,26 @@ void Graph::AddToGraph(string source, string destination, transportations list_O
 	edgecount++;
 }
 
+//all paths using dfs
 void Graph::DFS(string source, string destination, vector<string>& currentPath, vector<vector<string>>& allPaths)
 {                                               
-	visited[source] = true;                     
+	visited[source] = true; //  Boolean array to prevent traversing through a node that is already visited                    
 	currentPath.push_back(source);              
 
-	if (source == destination) {                  
+	if (source == destination) {   // Base case to add the valid path         
 		allPaths.push_back(currentPath);       
 	}                                            
 	else {                                      
-		for (auto neighbor : graph[source]) {        
+		for (auto neighbor : graph[source]) {   //  iterate over the neighboring cities of [source]  
 			string nextCity = neighbor.first;   
 			if (!visited[nextCity]) {           
-				DFS(nextCity, destination, currentPath, allPaths);
+				DFS(nextCity, destination, currentPath, allPaths);   // DFS on the neighboring cities recursively until the destination is reached
 			}                                    
 		}
 	}
 	 
-	visited[source] = false;     
+	// Return the visited state to "false" to iterate again but on different paths
+	visited[source] = false;
 	currentPath.pop_back();  
 }
 
@@ -54,7 +56,7 @@ transportations Graph::findWeight(string source, string destination)
 	return error;
 }
 
-void Graph::Add(string source, string destination, transportations WayOfTransport)
+void Graph::Add(string source, string destination, transportations WayOfTransport) 
 {
 	if (findWeight(source, destination).begin()->first == -1)
 	{
@@ -66,7 +68,7 @@ void Graph::Add(string source, string destination, transportations WayOfTranspor
 		{
 			if (it.first == destination)
 			{
-				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());
+				it.second.insert(WayOfTransport.begin(), WayOfTransport.end());  //to insert a set in another set
 				break;
 			}
 		}
