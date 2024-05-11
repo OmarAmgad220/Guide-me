@@ -1,5 +1,16 @@
-4
-Cairo - Giza Metro 30 Bus 60 Uber 230
-Cairo - BeniSuef Bus 15 Microbus 20
-Cairo - Dahab Bus 600
-Giza - BeniSuef Microbus 345 Bus 500
+15
+Chicago - Detroit Bus 80 Train 120 Flight 250
+Detroit - Toronto Bus 90 Train 100 Flight 140
+Miami - Atlanta Bus 110 Train 150 Flight 240
+Miami - Houston Bus 150 Train 200 Flight 320
+Toronto - Montreal Bus 55 Train 80 Flight 150
+Boston - Montreal Bus 60 Train 90 Flight 160
+Boston - NewYork Bus 50 Train 70 Flight 120
+Atlanta - WashingtonDC Bus 100 Train 120 Flight 200
+Houston - LosAngeles Bus 250 Train 320 Flight 450
+WashingtonDC - Philadelphia Bus 40 Train 60 Flight 80
+NewYork - Philadelphia Bus 30 Train 40 Flight 60
+LosAngeles - SanFrancisco Bus 150 Train 220 Flight 350
+SanFrancisco - Seattle Bus 180 Train 280 Flight 400
+Seattle - Vancouver Bus 120 Train 180 Flight 250
+Vancouver - Calgary Bus 180 Train 200 Flight 300
