@@ -9,9 +9,10 @@ Graph::Graph()
 
 void Graph::AddToGraph(string source, string destination, transportations list_Of_Transportation)
 {
+	source[0] = toupper(source[0]);
+
 	graph[source].push_back(make_pair(destination, list_Of_Transportation));
 	graph[destination].push_back(make_pair(source, list_Of_Transportation));
-
 	//use it to know number of distinct nodes
 	nodes.insert(source);
 	nodes.insert(destination);

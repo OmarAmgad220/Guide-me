@@ -70,10 +70,10 @@ void drawBorder(string massege, int bordersSize, Color MsgColor, Color MainColor
     int negativeSpaceSize = consoleWidth / 2 - massegeSize / 2;
     string negativeSpace(negativeSpaceSize / 8, '\t');
 
-    cout << "\n\n";
+    cout << "\n";
     cout << negativeSpace + spaces << endl;
     cout << negativeSpace + borders + massege + borders + "" << endl;
-    cout << negativeSpace + spaces + "\n\n";
+    cout << negativeSpace + spaces + "\n";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), MainColor);
 
 }
@@ -121,9 +121,11 @@ void handleGraphModification(Graph& graph, int& choice) {
         string transportation;
         cout << " Enter source city: ";
         cin >> src;
+        src[0] = toupper(src[0]);
         graph.displayNeighborCities(src);
         cout << " Enter destination city: ";
         cin >> dst;
+        dst[0] = toupper(dst[0]);
         cout << " Trasnportation available are: " << endl;
         transportations setOfTransportations = graph.findWeight(src, dst);
         int i = 0;
@@ -149,9 +151,11 @@ void handleGraphModification(Graph& graph, int& choice) {
         transportations t;
         cout << " Enter source city: ";
         cin >> src;
+        src[0] = toupper(src[0]);
         graph.displayAllCities(src);
         cout << " Enter destination city: ";
         cin >> dst;
+        dst[0] = toupper(dst[0]);
         char add_more = 'y';
         while (add_more == 'y' || add_more == 'Y') {
             string tr;
@@ -176,14 +180,16 @@ void handleGraphModification(Graph& graph, int& choice) {
     case 3: { // Delete edge
         cout << " Enter source city: ";
         cin >> src;
+        src[0] = toupper(src[0]);
         graph.displayNeighborCities(src);
         cout << " Enter destination city: ";
         cin >> dst;
+        dst[0] = toupper(dst[0]);
         graph.Delete(src, dst);
         cout << " Transportation deleted." << endl;
         break;
     }
-    case 4: { // Delete edge
+    case 4: { // Back to Main Menu edge
         choice = 0;
         return;
         break;
@@ -235,6 +241,8 @@ void mainMenu(Graph& graph) {
             string source, destination;
             cout << " Enter starting city:  ";
             cin >> source;
+            source[0] = toupper(source[0]);
+
             if (graph.graph.find(source) == graph.graph.end())
             {
                 invalidError("This city doesn't exist, try again");
@@ -289,15 +297,18 @@ void mainMenu(Graph& graph) {
             int budget;
             cout << " Enter source city: ";
             cin >> src;
-            graph.displayAllCities(src);
+            src[0] = toupper(src[0]);
             if (graph.graph.find(src) == graph.graph.end())
             {
-                cout << "\n This city doesn't exist, try again\n";
+                //drawBorder("This city doesn't exist, try again",4,WHITEb_REDf,WHITEb_BLACKf);
+                invalidError("This city doesn't exist, try again");
                 wait(2);
                 continue;
             }
+            graph.displayAllCities(src);
             cout << " Enter destination city: ";
             cin >> dst;
+            dst[0] = toupper(dst[0]);
             if (graph.graph.find(dst) == graph.graph.end())
             {
                 invalidError("This city doesn't exist, try again");
